@@ -1,4 +1,4 @@
-\documentclass[a4paper]{report}
+\documentclass[a5paper]{report}
 \renewcommand{\familydefault}{\sfdefault}
 \begin{document}
 
@@ -110,21 +110,38 @@ plot_var <- function(v) {
 }
 
 title <- make_tex('subsection*', list(function(i) toupper(names(mtcars)[i])))
-descr <- make_tex('', list(function(i) names(mtcars)[i], ' stands for ', 
+descr <- make_tex('emph', list(function(i) names(mtcars)[i], ' stands for ', 
                         function(i) mt_desc[i], 
-                       '. It values range from ', 
-                       function(i) min(mtcars[[i]]), 
-                       ' to ', 
-                       function(i) max(mtcars[[i]])
+#                        '. It values range from ', 
+#                        function(i) min(mtcars[[i]]), 
+#                        ' to ', 
+#                        function(i) max(mtcars[[i]]), 
+                               '.'
                        ))
                   
 chunk <- make_chunk(plot_var, list(fig.height=5))
 
-content <- knit_for(length(mtcars), list('\\newpage', title, descr, '\\', chunk))
-
+content <- knit_for(length(mtcars), list('\\newpage', title, descr, '\\newline', chunk))
+knit_preview(content, "Test.txt")
 
 @
 
 \Sexpr{knit(text=unlist(content))}
+
+\newpage
+\section*{CLUSTERING}
+
+<<>>=
+mtkm <- kmeans(mtcars, 3)
+pca_result <- prcomp(mtcars, center=TRUE, scale.=TRUE)
+pca_scores <- pca_result$x
+plot_clust <- data.frame(pca_scores, Cluster = factor(mtkm$cluster))
+ggplot(plot_clust, aes(PC1, PC2, fill=Cluster)) + 
+  geom_point(size=3, shape=21, colour='#777777') +
+  default_theme
+@
+
+
+
 
 \end{document}

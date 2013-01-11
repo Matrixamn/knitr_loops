@@ -5,25 +5,27 @@ knit_for <- function(n_times, layout) {
 
 	# Error check. 
 	# if (any(!sapply(layout, function(l) is.character(l) | is.function(l) | is.latex_inline)))
- #  		stop("Layout must contain only characters or functions.")
+ # 		stop("Layout must contain only characters or functions.")
+
 
   	latex_inline <- function(item, i) {
   
-	  execute_f <- function(f, i) as.character(f(i))
-	  
-	  name <- item$name
-	  
-	  if (is.list(name)) {
-	    name_f <- sapply(name, is.function)
-	    name[name_f] <- lapply(name[name_f], execute_f, i)  
-	    name_out <- do.call(paste0, name)
-	  } else if (is.function(name)) {
-	      name_out <- execute_f(name, i)
-	  } else {
-	      stop("Error.") 
-	  }
-	  
-	  return (paste0("\\", item$type, "{", name_out, "}"))
+		execute_f <- function(f, i) as.character(f(i))
+
+
+		name <- item$name
+
+		if (is.list(name)) {
+		name_f <- sapply(name, is.function)
+		name[name_f] <- lapply(name[name_f], execute_f, i)  
+		name_out <- do.call(paste0, name)
+		} else if (is.function(name)) {
+			name_out <- execute_f(name, i)
+		} else {
+			stop("Error.") 
+		}
+
+		return (paste0("\\", item$type, "{", name_out, "}"))
 	  
 	}
 
