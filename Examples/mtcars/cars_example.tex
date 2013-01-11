@@ -1,0 +1,204 @@
+\documentclass[a4paper]{report}\usepackage{graphicx, color}
+%% maxwidth is the original width if it is less than linewidth
+%% otherwise use linewidth (to make sure the graphics do not exceed the margin)
+\makeatletter
+\def\maxwidth{ %
+  \ifdim\Gin@nat@width>\linewidth
+    \linewidth
+  \else
+    \Gin@nat@width
+  \fi
+}
+\makeatother
+
+\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
+\definecolor{fgcolor}{rgb}{0.2, 0.2, 0.2}
+\newcommand{\hlnumber}[1]{\textcolor[rgb]{0,0,0}{#1}}%
+\newcommand{\hlfunctioncall}[1]{\textcolor[rgb]{0.501960784313725,0,0.329411764705882}{\textbf{#1}}}%
+\newcommand{\hlstring}[1]{\textcolor[rgb]{0.6,0.6,1}{#1}}%
+\newcommand{\hlkeyword}[1]{\textcolor[rgb]{0,0,0}{\textbf{#1}}}%
+\newcommand{\hlargument}[1]{\textcolor[rgb]{0.690196078431373,0.250980392156863,0.0196078431372549}{#1}}%
+\newcommand{\hlcomment}[1]{\textcolor[rgb]{0.180392156862745,0.6,0.341176470588235}{#1}}%
+\newcommand{\hlroxygencomment}[1]{\textcolor[rgb]{0.43921568627451,0.47843137254902,0.701960784313725}{#1}}%
+\newcommand{\hlformalargs}[1]{\textcolor[rgb]{0.690196078431373,0.250980392156863,0.0196078431372549}{#1}}%
+\newcommand{\hleqformalargs}[1]{\textcolor[rgb]{0.690196078431373,0.250980392156863,0.0196078431372549}{#1}}%
+\newcommand{\hlassignement}[1]{\textcolor[rgb]{0,0,0}{\textbf{#1}}}%
+\newcommand{\hlpackage}[1]{\textcolor[rgb]{0.588235294117647,0.709803921568627,0.145098039215686}{#1}}%
+\newcommand{\hlslot}[1]{\textit{#1}}%
+\newcommand{\hlsymbol}[1]{\textcolor[rgb]{0,0,0}{#1}}%
+\newcommand{\hlprompt}[1]{\textcolor[rgb]{0.2,0.2,0.2}{#1}}%
+
+\usepackage{framed}
+\makeatletter
+\newenvironment{kframe}{%
+ \def\at@end@of@kframe{}%
+ \ifinner\ifhmode%
+  \def\at@end@of@kframe{\end{minipage}}%
+  \begin{minipage}{\columnwidth}%
+ \fi\fi%
+ \def\FrameCommand##1{\hskip\@totalleftmargin \hskip-\fboxsep
+ \colorbox{shadecolor}{##1}\hskip-\fboxsep
+     % There is no \\@totalrightmargin, so:
+     \hskip-\linewidth \hskip-\@totalleftmargin \hskip\columnwidth}%
+ \MakeFramed {\advance\hsize-\width
+   \@totalleftmargin\z@ \linewidth\hsize
+   \@setminipage}}%
+ {\par\unskip\endMakeFramed%
+ \at@end@of@kframe}
+\makeatother
+
+\definecolor{shadecolor}{rgb}{.97, .97, .97}
+\definecolor{messagecolor}{rgb}{0, 0, 0}
+\definecolor{warningcolor}{rgb}{1, 0, 1}
+\definecolor{errorcolor}{rgb}{1, 0, 0}
+\newenvironment{knitrout}{}{} % an empty environment to be redefined in TeX
+
+\usepackage{alltt}
+\renewcommand{\familydefault}{\sfdefault}
+\begin{document}
+
+
+
+
+
+\title{Motor Trends}
+\author{C Tobin}
+\maketitle
+
+\section*{Introduction}
+
+The data was extracted from the 1974 Motor Trend US magazine, and comprises fuel consumption and 10 aspects of automobile design and performance for 32 automobiles (1973--74 models).
+
+\newpage
+\section*{CORRELATION}
+
+
+
+
+
+The plot below shows the absolute correlation between each of the attributes in the data. The mean absolute correlation is 0.56.
+
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}
+\includegraphics[width=\maxwidth]{figure/unnamed-chunk-1} 
+
+\end{knitrout}
+
+
+
+
+
+
+\newpage
+\subsection*{MPG}
+\{mpg stands for Miles/(US) gallon. It values range from 10.4 to 33.9}
+\
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}
+\includegraphics[width=\maxwidth]{figure/unnamed-chunk-3} 
+
+\end{knitrout}
+
+\newpage
+\subsection*{CYL}
+\{cyl stands for Number of cylinders. It values range from 4 to 8}
+\
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}
+\includegraphics[width=\maxwidth]{figure/unnamed-chunk-4} 
+
+\end{knitrout}
+
+\newpage
+\subsection*{DISP}
+\{disp stands for Displacement (cu.in.). It values range from 71.1 to 472}
+\
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}
+\includegraphics[width=\maxwidth]{figure/unnamed-chunk-5} 
+
+\end{knitrout}
+
+\newpage
+\subsection*{HP}
+\{hp stands for Gross horsepower. It values range from 52 to 335}
+\
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}
+\includegraphics[width=\maxwidth]{figure/unnamed-chunk-6} 
+
+\end{knitrout}
+
+\newpage
+\subsection*{DRAT}
+\{drat stands for Rear axle ratio. It values range from 2.76 to 4.93}
+\
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}
+\includegraphics[width=\maxwidth]{figure/unnamed-chunk-7} 
+
+\end{knitrout}
+
+\newpage
+\subsection*{WT}
+\{wt stands for Weight (lb/1000). It values range from 1.513 to 5.424}
+\
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}
+\includegraphics[width=\maxwidth]{figure/unnamed-chunk-8} 
+
+\end{knitrout}
+
+\newpage
+\subsection*{QSEC}
+\{qsec stands for 1/4 mile time. It values range from 14.5 to 22.9}
+\
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}
+\includegraphics[width=\maxwidth]{figure/unnamed-chunk-9} 
+
+\end{knitrout}
+
+\newpage
+\subsection*{VS}
+\{vs stands for V/S. It values range from 0 to 1}
+\
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}
+\includegraphics[width=\maxwidth]{figure/unnamed-chunk-10} 
+
+\end{knitrout}
+
+\newpage
+\subsection*{AM}
+\{am stands for Transmission (0 = automatic, 1 = manual). It values range from 0 to 1}
+\
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}
+\includegraphics[width=\maxwidth]{figure/unnamed-chunk-11} 
+
+\end{knitrout}
+
+\newpage
+\subsection*{GEAR}
+\{gear stands for Number of forward gears. It values range from 3 to 5}
+\
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}
+\includegraphics[width=\maxwidth]{figure/unnamed-chunk-12} 
+
+\end{knitrout}
+
+\newpage
+\subsection*{CARB}
+\{carb stands for Number of carburetors. It values range from 1 to 8}
+\
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}
+\includegraphics[width=\maxwidth]{figure/unnamed-chunk-13} 
+
+\end{knitrout}
+
+
+
+\end{document}
