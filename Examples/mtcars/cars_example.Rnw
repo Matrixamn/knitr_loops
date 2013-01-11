@@ -1,0 +1,130 @@
+\documentclass[a4paper]{report}
+\renewcommand{\familydefault}{\sfdefault}
+\begin{document}
+
+<<setup, include=FALSE, cache=FALSE>>=
+opts_chunk$set(echo=FALSE, tidy=FALSE)
+options(digits = 2)
+
+# source("././main.R", chdir=TRUE)
+source("C:/Users/ctobin/Documents/R/knitr_loops/main.R")
+
+library(ggplot2)
+library(reshape2)
+library(gridExtra)
+
+theme_colours <- list(text='#444444', primary='#de6757')
+default_theme <- theme()
+default_theme$panel.background = element_rect(fill=NA)
+default_theme$panel.grid.major = element_line(colour=NA)
+default_theme$panel.grid.minor = element_line(colour=NA)
+default_theme$axis.ticks = element_blank()
+default_theme$axis.text = element_text(colour=theme_colours$text)
+default_theme$axis.title.x = element_text(colour=theme_colours$text, vjust=0, face='bold')
+default_theme$axis.title.y = element_text(colour=theme_colours$text, vjust=0.15, face='bold')
+default_theme$legend.text = element_text(colour=theme_colours$text)
+default_theme$legend.title = element_text(colour=theme_colours$text)
+default_theme$legend.position = 'bottom'
+default_theme$plot.title = element_text(colour=theme_colours$text, 
+                                        face='bold', hjust=1, vjust=1)
+
+
+mt_desc <- c(
+  'Miles/(US) gallon',
+  'Number of cylinders',
+  'Displacement (cu.in.)',
+  'Gross horsepower', 
+  'Rear axle ratio',
+  'Weight (lb/1000)',
+  '1/4 mile time',
+  'V/S',
+  'Transmission (0 = automatic, 1 = manual)',
+  'Number of forward gears',
+  'Number of carburetors'
+)
+
+@
+
+
+\title{Motor Trends}
+\author{C Tobin}
+\maketitle
+
+\section*{Introduction}
+
+The data was extracted from the 1974 Motor Trend US magazine, and comprises fuel consumption and 10 aspects of automobile design and performance for 32 automobiles (1973--74 models).
+
+\newpage
+\section*{CORRELATION}
+
+<<calculate_correlation>>=
+mt_cor <- abs(cor(mtcars, method='pearson'))
+diag(mt_cor) <- NA
+
+mean_cor <- mean(mt_cor, na.rm = TRUE)
+
+cor_counter <- function(mt_cor) {
+  function(threshold) {
+    sum(mt_cor > threshold, na.rm = TRUE) / 2
+  } 
+}
+
+cor_count <- cor_counter(mt_cor)
+
+@
+
+
+The plot below shows the absolute correlation between each of the attributes in the data. The mean absolute correlation is \Sexpr{mean_cor}.
+
+<<>>=
+cor_melt <- melt(mt_cor, varnames=c('A', 'B'), value.name='Correlation', )
+ggplot(as.data.frame(cor_melt), aes(A, B, fill = Correlation)) + 
+  geom_tile(colour='white', size=1.2) +
+  scale_fill_gradient(low='#f6f6f6', high=theme_colours$primary) +
+  xlab("") + ylab("") + ggtitle("ABSOLUTE VARIABLE CORRELATION") +
+  default_theme
+@
+
+
+<<>>=
+
+plot_var <- function(v) {
+
+  vdf <- data.frame(Values = mtcars[[v]])
+  v_name <- toupper(names(mtcars)[v])
+  
+  density_plot <- ggplot(vdf, aes(Values)) + 
+    geom_density(fill=theme_colours$primary, colour='#444444') +
+    ylab("Density") + ggtitle(paste(v_name, 'DENSITY'))
+  
+  hist_plot <- ggplot(vdf, aes(Values)) + 
+    geom_histogram(fill=theme_colours$primary, colour='#444444', binwidth=with(vdf, (max(Values) - min(Values)) / 5)) +
+    ylab("Count") + ggtitle(paste(v_name, 'HISTOGRAM'))
+  
+  ps <- lapply(list(density_plot, hist_plot), function(p) p + default_theme)
+#   for (p in list(density_plot, hist_plot))
+#     plot(p + default_theme)
+  
+  grid.arrange(ps[[1]], ps[[2]], ncol=2)
+  
+}
+
+title <- make_tex('subsection*', list(function(i) toupper(names(mtcars)[i])))
+descr <- make_tex('', list(function(i) names(mtcars)[i], ' stands for ', 
+                        function(i) mt_desc[i], 
+                       '. It values range from ', 
+                       function(i) min(mtcars[[i]]), 
+                       ' to ', 
+                       function(i) max(mtcars[[i]])
+                       ))
+                  
+chunk <- make_chunk(plot_var, list(fig.height=5))
+
+content <- knit_for(length(mtcars), list('\\newpage', title, descr, '\\', chunk))
+
+
+@
+
+\Sexpr{knit(text=unlist(content))}
+
+\end{document}
